@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="cloud.css" />
+  <style>#loginModal{display:none}</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
   <div class="app-shell">
@@ -76,6 +80,9 @@
     <div class="modal"><button class="modal-close">×</button><span class="modal-kicker">Cadastro</span><h2 id="productModalTitle">Novo produto</h2><form id="productForm"><input type="hidden" id="editId"><div class="form-grid"><label class="full">Nome<input id="pName" required placeholder="Ex.: Páprica defumada"></label><label>Categoria<select id="pCategory"><option>Alhos</option><option>Temperos</option><option>Ervas</option><option>Pimentas</option><option>Condimentos</option></select></label><label>Venda por<select id="pUnit"><option value="kg">Quilograma</option><option value="un">Unidade</option></select></label><label>Preço<input id="pPrice" type="number" min="0.01" step="0.01" required></label><label>Estoque<input id="pStock" type="number" min="0" step="0.01" required></label></div><button class="modal-primary" type="submit">Salvar produto</button></form></div>
   </div>
 
+  <div class="modal-backdrop open" id="loginModal"><div class="modal login-modal"><span class="brand-mark login-mark">L</span><span class="modal-kicker">Empório Lourenço</span><h2>Acesso ao PDV</h2><p>Entre para acessar os dados compartilhados.</p><form id="loginForm"><label>E-mail<input id="loginEmail" type="email" required autocomplete="email"></label><label>Senha<input id="loginPassword" type="password" required minlength="6"></label><button class="modal-primary" type="submit">Entrar</button></form><button class="signup-link" id="signupBtn">Criar primeiro acesso</button><p class="login-status" id="loginStatus"></p></div></div>
+  <div class="modal-backdrop" id="cancelModal"><div class="modal"><button class="modal-close">×</button><span class="modal-kicker">Cancelar venda</span><h2 id="cancelTitle"></h2><p>Os itens retornarão ao estoque e o registro será preservado.</p><label>Motivo</label><textarea id="cancelReason" rows="3" maxlength="240"></textarea><button class="danger-primary" id="confirmCancelBtn">Confirmar cancelamento</button></div></div>
+  <div class="modal-backdrop" id="pixModal"><div class="modal pix-modal"><button class="modal-close">×</button><span class="modal-kicker">Pagamento Pix</span><h2>Escaneie para pagar</h2><div id="pixQr"></div><div class="payment-total"><span>Valor</span><strong id="pixTotal"></strong></div><textarea id="pixCode" readonly></textarea><button class="outline-btn copy-pix" id="copyPixBtn">Copiar Pix copia e cola</button><button class="modal-primary" id="confirmPixBtn">Confirmar recebimento</button><small class="pix-warning">Confira o recebimento no banco antes de concluir.</small></div></div>
   <div class="toast" id="toast"></div>
   <script src="app.js"></script>
 </body>
