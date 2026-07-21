@@ -13,6 +13,9 @@ const seedProducts=[
  {id:12,name:'Noz-moscada inteira',category:'Condimentos',unit:'un',price:4.5,stock:38,emoji:'🟤'}
 ];
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+$$('.brand-mark').forEach(mark=>{mark.classList.add('has-logo');mark.innerHTML='<img src="logo-emporio-lourenco.jpeg" alt="Logo Empório Lourenço">'});
+const reportLogo=document.createElement('img');reportLogo.src='logo-emporio-lourenco.jpeg';reportLogo.alt='Logo Empório Lourenço';reportLogo.className='report-logo';$('.report-actions>div').prepend(reportLogo);
+$('.label-brand').innerHTML='<img src="logo-emporio-lourenco.jpeg" alt="Logo Empório Lourenço"><span>EMPÓRIO LOURENÇO</span>';
 const money=v=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v);
 const db=window.supabase.createClient('https://bauoppsrqshoyvoxhlkr.supabase.co','sb_publishable_E6Y3CLxuDLjHsaq8Xsf6Lw_910MScL5');
 let cloudReady=false,realtimeChannel=null;
