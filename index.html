@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="cloud.css" />
+  <link rel="stylesheet" href="reports.css" />
+  <link rel="stylesheet" href="print.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
@@ -20,6 +22,8 @@
         <button class="nav-item active" data-view="pdv"><span>▦</span> Frente de caixa</button>
         <button class="nav-item" data-view="estoque"><span>◫</span> Estoque</button>
         <button class="nav-item" data-view="vendas"><span>↗</span> Vendas</button>
+        <button class="nav-item" data-view="relatorios"><span>≋</span> Relatórios</button>
+        <button class="nav-item" data-view="etiquetas"><span>▱</span> Etiquetas</button>
       </nav>
       <div class="sidebar-note"><span class="online-dot"></span><div><strong>Caixa 01</strong><small>Sistema online</small></div></div>
       <button class="operator"><span class="avatar">BN</span><div><strong>Bruno Nunes</strong><small>Administrador</small></div><span>⌄</span></button>
@@ -63,6 +67,15 @@
       <section id="vendasView" class="view page-view">
         <div class="stats" id="salesStats"></div>
         <div class="table-card"><div class="table-title"><div><h2>Histórico de vendas</h2><p>Movimentações registradas neste dispositivo</p></div><button class="outline-btn" id="exportBtn">↓ Exportar CSV</button></div><div class="table-scroll"><table><thead><tr><th>Venda</th><th>Data e hora</th><th>Itens</th><th>Pagamento</th><th>Total</th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
+      </section>
+
+      <section id="relatoriosView" class="view page-view">
+        <div class="report-actions"><div><h2>Relatórios gerenciais</h2><p>Dados atualizados a partir das vendas válidas.</p></div><button class="outline-btn" id="printReportsBtn">Imprimir relatórios</button></div>
+        <div class="report-grid"><div class="table-card"><div class="table-title"><div><h2>Posição atual de estoque</h2><p id="stockReportDate"></p></div><button class="outline-btn" id="stockCsvBtn">Exportar CSV</button></div><div class="table-scroll"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Quantidade</th><th>Custo de venda</th><th>Valor em estoque</th></tr></thead><tbody id="stockReportTable"></tbody></table></div></div><div class="table-card"><div class="table-title"><div><h2>Itens mais vendidos</h2><p>Vendas canceladas não são contabilizadas</p></div><button class="outline-btn" id="topCsvBtn">Exportar CSV</button></div><div class="table-scroll"><table><thead><tr><th>#</th><th>Produto</th><th>Quantidade</th><th>Receita bruta</th></tr></thead><tbody id="topProductsTable"></tbody></table></div></div></div>
+      </section>
+
+      <section id="etiquetasView" class="view page-view">
+        <div class="label-workspace"><div class="table-card label-form-card"><div class="table-title"><div><h2>Gerar etiqueta</h2><p>Compatível com impressoras térmicas</p></div></div><div class="label-form"><label>Produto<select id="labelProduct"></select></label><div class="two-cols"><label>Formato<select id="labelSize"><option value="40x30">40 × 30 mm</option><option value="60x40">60 × 40 mm</option></select></label><label>Quantidade de etiquetas<input id="labelCopies" type="number" value="1" min="1" max="100"></label></div><div class="two-cols"><label>Peso/quantidade<input id="labelQty" type="number" value="0.100" min="0.001" step="0.001"></label><label>Data de validade<input id="labelExpiry" type="date"></label></div><label>Lote (opcional)<input id="labelBatch" placeholder="Ex.: 2107-A"></label><button class="modal-primary" id="printLabelBtn">Imprimir etiqueta</button></div></div><div class="label-preview-wrap"><span>Pré-visualização</span><div class="label-preview size-40x30" id="labelPreview"><div class="label-brand">EMPÓRIO LOURENÇO</div><strong id="labelName">Selecione um produto</strong><div class="label-meta" id="labelMeta"></div><div class="label-price" id="labelPrice">R$ 0,00</div><div class="label-bottom"><div id="labelDates"></div><div id="labelQr"></div></div></div><small>O tamanho real será aplicado somente durante a impressão.</small></div></div>
       </section>
     </main>
   </div>
