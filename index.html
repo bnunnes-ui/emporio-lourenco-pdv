@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Empório Lourenço — PDV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">L</span><div><strong>Empório Lourenço</strong><small>Alhos, temperos e condimentos</small></div></div>
+      <nav>
+        <button class="nav-item active" data-view="pdv"><span>▦</span> Frente de caixa</button>
+        <button class="nav-item" data-view="estoque"><span>◫</span> Estoque</button>
+        <button class="nav-item" data-view="vendas"><span>↗</span> Vendas</button>
+      </nav>
+      <div class="sidebar-note"><span class="online-dot"></span><div><strong>Caixa 01</strong><small>Sistema online</small></div></div>
+      <button class="operator"><span class="avatar">BN</span><div><strong>Bruno Nunes</strong><small>Administrador</small></div><span>⌄</span></button>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><p class="eyebrow" id="dateLabel"></p><h1 id="pageTitle">Frente de caixa</h1></div>
+        <div class="top-actions"><button class="icon-btn" title="Atalhos">⌘</button><button class="icon-btn" title="Notificações">♢<i></i></button></div>
+      </header>
+
+      <section id="pdvView" class="view active">
+        <div class="workspace">
+          <section class="catalog-panel">
+            <div class="search-wrap"><span>⌕</span><input id="searchInput" placeholder="Buscar produto ou código..." autofocus><kbd>F2</kbd></div>
+            <div class="category-row" id="categories"></div>
+            <div class="catalog-heading"><div><h2>Produtos</h2><p id="productCount"></p></div><button class="outline-btn" id="newProductBtn">＋ Novo produto</button></div>
+            <div class="product-grid" id="productGrid"></div>
+          </section>
+
+          <aside class="cart-panel">
+            <div class="cart-header"><div><span class="receipt-icon">▤</span><div><h2>Venda atual</h2><p id="saleNumber"></p></div></div><button id="clearCart" class="text-btn">Limpar</button></div>
+            <div class="customer-row"><div class="customer-avatar">＋</div><div><strong>Consumidor final</strong><small>Adicionar cliente</small></div><span>›</span></div>
+            <div id="cartItems" class="cart-items"></div>
+            <div id="emptyCart" class="empty-cart"><div>🧺</div><h3>Sua cesta está vazia</h3><p>Selecione um produto ao lado<br>para iniciar a venda.</p></div>
+            <div class="cart-summary">
+              <div><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
+              <div><button class="discount-link" id="discountBtn">＋ Adicionar desconto</button><strong id="discountValue">—</strong></div>
+              <div class="total-row"><span>Total</span><strong id="total">R$ 0,00</strong></div>
+              <button class="checkout-btn" id="checkoutBtn" disabled><span><small>F10</small> Finalizar venda</span><strong id="checkoutTotal">R$ 0,00</strong></button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="estoqueView" class="view page-view">
+        <div class="stats" id="stockStats"></div>
+        <div class="table-card"><div class="table-title"><div><h2>Controle de estoque</h2><p>Produtos cadastrados e níveis atuais</p></div><button class="primary-small" id="stockNewBtn">＋ Novo produto</button></div><div class="table-scroll"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Status</th><th></th></tr></thead><tbody id="stockTable"></tbody></table></div></div>
+      </section>
+
+      <section id="vendasView" class="view page-view">
+        <div class="stats" id="salesStats"></div>
+        <div class="table-card"><div class="table-title"><div><h2>Histórico de vendas</h2><p>Movimentações registradas neste dispositivo</p></div><button class="outline-btn" id="exportBtn">↓ Exportar CSV</button></div><div class="table-scroll"><table><thead><tr><th>Venda</th><th>Data e hora</th><th>Itens</th><th>Pagamento</th><th>Total</th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="weightModal">
+    <div class="modal"><button class="modal-close">×</button><span class="modal-kicker">Produto por peso</span><h2 id="weightTitle"></h2><p id="weightPrice"></p><label>Peso em quilogramas</label><div class="weight-input"><input id="weightInput" type="number" min="0.01" step="0.01" value="0.10"><span>kg</span></div><div class="quick-weights"><button data-weight="0.1">100 g</button><button data-weight="0.25">250 g</button><button data-weight="0.5">500 g</button><button data-weight="1">1 kg</button></div><div class="modal-total"><span>Total estimado</span><strong id="weightTotal"></strong></div><button class="modal-primary" id="addWeightBtn">Adicionar à venda</button></div>
+  </div>
+
+  <div class="modal-backdrop" id="paymentModal">
+    <div class="modal payment-modal"><button class="modal-close">×</button><span class="modal-kicker">Finalizar venda</span><h2>Como o cliente vai pagar?</h2><div class="payment-total"><span>Total a receber</span><strong id="paymentTotal"></strong></div><div class="payment-grid"><button data-payment="Pix"><span>◆</span><strong>Pix</strong><small>Aprovação imediata</small></button><button data-payment="Dinheiro"><span>◉</span><strong>Dinheiro</strong><small>Calcular troco</small></button><button data-payment="Cartão de débito"><span>▣</span><strong>Débito</strong><small>Maquininha</small></button><button data-payment="Cartão de crédito"><span>▰</span><strong>Crédito</strong><small>Maquininha</small></button></div></div>
+  </div>
+
+  <div class="modal-backdrop" id="productModal">
+    <div class="modal"><button class="modal-close">×</button><span class="modal-kicker">Cadastro</span><h2 id="productModalTitle">Novo produto</h2><form id="productForm"><input type="hidden" id="editId"><div class="form-grid"><label class="full">Nome<input id="pName" required placeholder="Ex.: Páprica defumada"></label><label>Categoria<select id="pCategory"><option>Alhos</option><option>Temperos</option><option>Ervas</option><option>Pimentas</option><option>Condimentos</option></select></label><label>Venda por<select id="pUnit"><option value="kg">Quilograma</option><option value="un">Unidade</option></select></label><label>Preço<input id="pPrice" type="number" min="0.01" step="0.01" required></label><label>Estoque<input id="pStock" type="number" min="0" step="0.01" required></label></div><button class="modal-primary" type="submit">Salvar produto</button></form></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
