@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="print.css" />
   <link rel="stylesheet" href="brand.css" />
   <link rel="stylesheet" href="logout.css" />
+  <link rel="stylesheet" href="cart-drawer.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
@@ -47,7 +48,7 @@
           </section>
 
           <aside class="cart-panel">
-            <div class="cart-header"><div><span class="receipt-icon">▤</span><div><h2>Venda atual</h2><p id="saleNumber"></p></div></div><button id="clearCart" class="text-btn">Limpar</button></div>
+            <div class="cart-header"><div><span class="receipt-icon">▤</span><div><h2>Venda atual</h2><p id="saleNumber"></p></div></div><div class="cart-header-actions"><button id="clearCart" class="text-btn">Limpar</button><button id="closeCart" class="close-cart" title="Fechar venda">×</button></div></div>
             <div class="customer-row"><div class="customer-avatar">＋</div><div><strong>Consumidor final</strong><small>Adicionar cliente</small></div><span>›</span></div>
             <div id="cartItems" class="cart-items"></div>
             <div id="emptyCart" class="empty-cart"><div>🧺</div><h3>Sua cesta está vazia</h3><p>Selecione um produto ao lado<br>para iniciar a venda.</p></div>
