@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="reports.css" />
   <link rel="stylesheet" href="print.css" />
   <link rel="stylesheet" href="brand.css" />
+  <link rel="stylesheet" href="logout.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
@@ -33,7 +34,7 @@
     <main>
       <header class="topbar">
         <div><p class="eyebrow" id="dateLabel"></p><h1 id="pageTitle">Frente de caixa</h1></div>
-        <div class="top-actions"><button class="icon-btn" title="Atalhos">⌘</button><button class="icon-btn" title="Notificações">♢<i></i></button></div>
+        <div class="top-actions"><button class="logout-top" id="logoutBtn" title="Encerrar sessão"><span>↪</span> Sair</button><button class="icon-btn" title="Atalhos">⌘</button><button class="icon-btn" title="Notificações">♢<i></i></button></div>
       </header>
 
       <section id="pdvView" class="view active">

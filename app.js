@@ -78,5 +78,6 @@ $$('.nav-item').forEach(b=>b.onclick=()=>{$$('.nav-item').forEach(x=>x.classList
 document.addEventListener('keydown',e=>{if(e.key==='F2'){e.preventDefault();$('#searchInput').focus()}if(e.key==='F10'&&cart.length){e.preventDefault();$('#checkoutBtn').click()}if(e.key==='Escape')closeModals()});
 function renderAll(){renderCategories();renderProducts();renderCart();renderStock();renderSales();renderReports();renderLabelOptions();$('#saleNumber').textContent=`Venda #${String((sales[0]?.id||0)+1).padStart(4,'0')}`}
 $('.operator').onclick=async()=>{if(confirm('Deseja sair do sistema?')){await db.auth.signOut();location.reload()}};
+$('#logoutBtn').onclick=async()=>{if(confirm('Deseja encerrar sua sessão?')){await db.auth.signOut();location.reload()}};
 db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT')$('#loginModal').classList.add('open');if(event==='SIGNED_IN'&&!cloudReady)setTimeout(()=>enterSystem(session),0)});
 (async()=>{renderAll();const {data:{session}}=await db.auth.getSession();if(session)await enterSystem(session);else $('#loginModal').classList.add('open')})();

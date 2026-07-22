@@ -1,0 +1,1 @@
+.logout-top{height:38px;border:1px solid #e3d4d0;border-radius:9px;background:#fff;color:#a64d46;padding:0 13px;font:700 11px "DM Sans";cursor:pointer;display:flex;align-items:center;gap:7px}.logout-top:hover{background:#fff3f1;border-color:#d9aaa4}.logout-top span{font-size:16px}@media(max-width:720px){.logout-top{padding:0 10px}.logout-top span{display:none}}
